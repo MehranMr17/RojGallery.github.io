@@ -1,829 +1,421 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="مروس‌گالری: اپلیکیشن مدیریت کارگاه خیاطی با قابلیت ثبت سفارش، مدیریت خیاط‌ها و گزارش‌های مالی. توسعه‌یافته توسط مهران رسول‌زاده.">
-    <meta name="keywords" content="اپلیکیشن خیاطی, مدیریت کارگاه, مروس‌گالری, اپلیکیشن اندروید, مهران رسول‌زاده">
-    <title data-lang-key="title">مروس‌گالری: سیستم مدیریت هوشمند کارگاه خیاطی | مهران رسول‌زاده</title>
-    
-    <!-- Dependencies -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="مروس‌گالری | معرفی محصول برای مشتریان + رزومه فنی توسعه‌دهنده" />
+  <meta name="keywords" content="RojGallery, MeRoSGallery, Android, PHP, Tailoring Management" />
+  <title data-lang-key="title">مروس‌گالری | معرفی محصول + رزومه فنی</title>
 
-    <style>
-        :root {
-            --bs-primary-rgb: 30, 144, 255; /* Dodger Blue */
-            --bs-secondary-rgb: 255, 140, 0; /* Dark Orange */
-            --bs-body-bg: #ffffff;
-            --bs-body-color: #212529;
-            --bs-border-radius: 0.75rem;
-        }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800&display=swap" rel="stylesheet" />
 
-        body {
-            font-family: 'Vazirmatn', sans-serif;
-            background-color: var(--bs-body-bg);
-            color: var(--bs-body-color);
-        }
+  <style>
+    :root {
+      --brand: #1e90ff;
+      --brand-2: #ff8c00;
+      --bg-soft: #f8fafc;
+      --text: #1f2937;
+      --radius: 1rem;
+    }
 
-        /* --- Language Switcher --- */
-        .language-switcher {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .language-switcher .lang-btn {
-            font-size: 0.9rem;
-            font-weight: 500;
-            padding: 4px 10px;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .language-switcher .lang-btn.active {
-            background-color: rgba(30, 144, 255, 0.9);
-            color: #ffffff;
-        }
-        .language-switcher .lang-btn:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            color: #ffffff;
-        }
+    body {
+      font-family: 'Vazirmatn', sans-serif;
+      color: var(--text);
+      background: #fff;
+    }
 
-        /* --- Text Readability --- */
-        .text-muted {
-            color: #6c757d !important;
-        }
-        .text-m {
-            color: #ffffff !important;
-        }
+    .language-switcher {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 1050;
+      background: rgba(31, 41, 55, 0.8);
+      padding: 6px;
+      border-radius: 999px;
+      backdrop-filter: blur(5px);
+    }
 
-        /* --- Hero Section --- */
-        .hero-section {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://rochi.ir/mag/wp-content/uploads/2025/05/safety-tips-in-sewing-workshop.jpg') center/cover no-repeat;
-            padding: 100px 0;
-            text-align: center;
-            position: relative;
-            color: #ffffff;
-            box-shadow: inset 0 0 200px rgba(0,0,0,0.7);
-        }
-        .hero-section h1 {
-            font-weight: 700;
-            font-size: 2.8rem;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-        }
-        .hero-section .lead {
-            font-size: 1.25rem;
-            max-width: 700px;
-            margin: 20px auto 40px;
-            color: #ffffff;
-            font-weight: 300;
-            text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-        }
-        .hero-section .btn {
-            font-weight: 500;
-            padding: 14px 35px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-        }
-        .hero-section .btn-primary {
-            background-color: rgba(30, 144, 255, 0.9);
-            border-color: rgba(30, 144, 255, 0.9);
-            box-shadow: 0 4px 15px rgba(30, 144, 255, 0.2);
-        }
-        .hero-section .btn-primary:hover {
-            background-color: rgba(255, 140, 0, 0.9);
-            border-color: rgba(255, 140, 0, 0.9);
-            box-shadow: 0 6px 20px rgba(255, 140, 0, 0.25);
-        }
-        .hero-section .btn-outline-secondary {
-            border-width: 2px;
-            color: #ffffff;
-            border-color: #ffffff;
-        }
-        .hero-section .btn-outline-secondary:hover {
-            background-color: rgba(255, 140, 0, 0.9);
-            color: #ffffff;
-            border-color: rgba(255, 140, 0, 0.9);
-        }
-        .icon-spacing {
-            margin-left: 8px;
-        }
+    .lang-btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 4px 12px;
+      color: #fff;
+      background: transparent;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
 
-        /* --- General Section Styling --- */
-        .section-padding {
-            padding: 80px 0;
-            background-color: var(--bs-body-bg);
-        }
-        .section-title {
-            font-weight: 700;
-            margin-bottom: 50px;
-            text-align: center;
-            position: relative;
-            color: #212529;
-        }
-        .section-title::after {
-            content: '';
-            width: 60px;
-            height: 4px;
-            background-color: rgba(30, 144, 255, 0.7);
-            position: absolute;
-            bottom: -15px;
-            right: 50%;
-            transform: translateX(50%);
-            border-radius: 2px;
-        }
+    .lang-btn.active {
+      background: var(--brand);
+    }
 
-        /* --- Tech Stack Section --- */
-        .tech-stack-section {
-            background-color: #f8f9fa;
-        }
-        .tech-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 25px;
-            background-color: #ffffff;
-            border: 1px solid #dee2e6;
-            border-radius: var(--bs-border-radius);
-            height: 100%;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .tech-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-color: rgba(30, 144, 255, 0.3);
-        }
-        .tech-item i {
-            font-size: 40px;
-            margin-bottom: 15px;
-            color: #212529;
-        }
-        .tech-item span, .tech-item small {
-            color: #212529;
-        }
-        .tech-item span {
-            font-weight: 500;
-        }
-        .tech-item small {
-            font-size: 0.85rem;
-            margin-top: 8px;
-        }
+    .hero {
+      background: linear-gradient(135deg, #0f172a 10%, #1e3a8a 55%, #1e90ff 100%);
+      color: #fff;
+      padding: 110px 0 80px;
+      text-align: center;
+    }
 
-        /* --- Why MeRoSGallery Section --- */
-        .why-MeRoSgallery-section {
-            background-color: #f8f9fa;
-        }
-        .why-item {
-            text-align: center;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: var(--bs-border-radius);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .why-item h4, .why-item p {
-            color: #212529;
-        }
-        .why-item h4 {
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
-        .why-item p {
-            font-size: 0.9rem;
-        }
+    .hero h1 {
+      font-weight: 800;
+      line-height: 1.5;
+    }
 
-        /* --- App Showcase Section --- */
-        .nav-tabs {
-            border-bottom: 1px solid #dee2e6;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-        .nav-tabs .nav-link {
-            border: none;
-            border-bottom: 3px solid transparent;
-            padding: 15px 25px;
-            font-weight: 500;
-            color: #6c757d;
-        }
-        .nav-tabs .nav-link.active {
-            border-color: rgba(30, 144, 255, 0.7);
-            color: #212529;
-            background-color: transparent;
-        }
-        .tab-pane img {
-            max-width: 300px;
-            height: auto;
-            border-radius: var(--bs-border-radius);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .feature-list li {
-            padding-right: 2rem;
-            position: relative;
-            margin-bottom: 1rem;
-        }
-        .feature-list li::before {
-            content: "\F26A"; /* Bootstrap Icon Check Circle */
-            font-family: 'bootstrap-icons';
-            position: absolute;
-            right: 0;
-            color: rgba(30, 144, 255, 0.7);
-            font-size: 1.2rem;
-        }
-        @media (max-width: 576px) {
-            .feature-list li {
-                padding-left: 2rem;
-                padding-right: 0;
-            }
-            .feature-list li::before {
-                right: auto;
-                left: 0;
-            }
-        }
+    .section-padding {
+      padding: 78px 0;
+    }
 
-        /* --- Contact Section --- */
-        .contact-section {
-            background-color: #f8f9fa;
-            padding: 60px 0;
-        }
-        .contact-card {
-            background-color: #ffffff;
-            border-radius: var(--bs-border-radius);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            padding: 30px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        .contact-card .form-control {
-            background-color: #ffffff;
-            border: 1px solid #ced4da;
-            color: #212529;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
-            border-radius: 12px;
-            transition: border-color 0.3s ease;
-        }
-        .contact-card .form-control::placeholder {
-            color: #6c757d;
-        }
-        .contact-card .form-control:focus {
-            border-color: rgba(30, 144, 255, 0.7);
-            box-shadow: 0 0 5px rgba(30, 144, 255, 0.2);
-        }
-        .contact-card .form-label {
-            font-size: 0.85rem;
-            color: #212529;
-        }
-        .contact-card .btn {
-            border-radius: 50px;
-            padding: 8px 20px;
-            background-color: rgba(30, 144, 255, 0.9);
-            border-color: rgba(30, 144, 255, 0.9);
-            font-size: 0.85rem;
-            width: 100%;
-            transition: all 0.3s ease;
-        }
-        .contact-card .btn:hover {
-            background-color: rgba(255, 140, 0, 0.9);
-            border-color: rgba(255, 140, 0, 0.9);
-            transform: translateY(-2px);
-        }
+    .section-title {
+      font-weight: 800;
+      margin-bottom: 18px;
+    }
 
-        /* --- Footer Section --- */
-        .footer-section {
-            background-color: #f8f9fa;
-            padding: 30px 0;
-            border-top: 1px solid #dee2e6;
-        }
-        .footer-content {
-            color: #212529;
-        }
-        .footer-content h4 {
-            font-weight: 600;
-            font-size: 1rem;
-            margin: 0;
-            color: #212529;
-        }
-        .footer-content p {
-            font-size: 0.85rem;
-            margin: 0 10px;
-            color: #212529;
-        }
-        .footer-content .social-icons a {
-            color: #6c757d;
-            font-size: 16px;
-            margin: 0 6px;
-            transition: color 0.3s;
-        }
-        .footer-content .social-icons a:hover {
-            color: rgba(255, 140, 0, 0.9);
-        }
-        .footer-content .small {
-            font-size: 0.75rem;
-            margin: 0 10px;
-            color: #212529;
-        }
-        @media (max-width: 576px) {
-            .footer-content {
-                flex-direction: column !important;
-                gap: 10px;
-            }
-        }
-        
-        /* --- Modal --- */
-        .modal-content { border: none; }
-        .modal-header { border-bottom: none; }
-    </style>
+    .section-subtitle {
+      color: #6b7280;
+      max-width: 860px;
+      margin: 0 auto 42px;
+      text-align: center;
+    }
+
+    .audience-card {
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius);
+      padding: 24px;
+      height: 100%;
+      background: #fff;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+    }
+
+    .audience-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .feature-list li {
+      position: relative;
+      padding-right: 1.8rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .feature-list li::before {
+      content: "\F26A";
+      font-family: 'bootstrap-icons';
+      color: var(--brand);
+      position: absolute;
+      right: 0;
+      top: 0.1rem;
+    }
+
+    [dir="ltr"] .feature-list li {
+      padding-right: 0;
+      padding-left: 1.8rem;
+    }
+
+    [dir="ltr"] .feature-list li::before {
+      right: auto;
+      left: 0;
+    }
+
+    .light-section {
+      background: var(--bg-soft);
+    }
+
+    .repo-box {
+      border: 1px solid #dbeafe;
+      background: #eff6ff;
+      border-radius: var(--radius);
+      padding: 18px;
+      margin-bottom: 12px;
+    }
+
+    .repo-box a {
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .contact-card {
+      border: 1px solid #e5e7eb;
+      border-radius: var(--radius);
+      padding: 24px;
+      max-width: 560px;
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    .footer {
+      background: #111827;
+      color: #d1d5db;
+      padding: 24px 0;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
-    <!-- Language Switcher -->
-    <div class="language-switcher">
-        <button class="lang-btn" onclick="setLanguage('fa')" id="fa-btn">FA</button>
-        <button class="lang-btn" onclick="setLanguage('en')" id="en-btn">EN</button>
+  <div class="language-switcher" aria-label="Language Switcher">
+    <button class="lang-btn" id="fa-btn" onclick="setLanguage('fa')">FA</button>
+    <button class="lang-btn" id="en-btn" onclick="setLanguage('en')">EN</button>
+  </div>
+
+  <header class="hero">
+    <div class="container">
+      <p class="mb-2" data-lang-key="hero-badge">MeRoSGallery / RojGallery Project</p>
+      <h1 data-lang-key="hero-title">یک سایت، دو هدف: سفارش محصول + بررسی توانایی فنی</h1>
+      <p class="lead mt-3" data-lang-key="hero-desc">این صفحه به دو بخش تقسیم شده: بخش مشتری برای تصمیم‌گیری سریع، و بخش رزومه فنی برای بررسی دقیق کدنویسی و معماری.</p>
+      <div class="d-flex flex-wrap justify-content-center gap-2 mt-4">
+        <a href="#client-section" class="btn btn-light" data-lang-key="hero-cta-client">بخش مشتری</a>
+        <a href="#resume-section" class="btn btn-outline-light" data-lang-key="hero-cta-resume">بخش رزومه فنی</a>
+      </div>
     </div>
+  </header>
 
-    <!-- Header Section -->
-    <header class="hero-section">
-        <div class="container">
-            <h1 class="display-5" data-lang-key="hero-title">مروس‌گالری: سیستم مدیریت هوشمند کارگاه خیاطی</h1>
-            <p class="lead text-m" data-lang-key="hero-lead">اپلیکیشنی قدرتمند و یکپارچه برای ساده‌سازی فرآیندهای ثبت سفارش، مدیریت خیاط‌ها و کنترل مالی کارگاه‌های خیاطی.</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="https://github.com/mehranmr17" target="_blank" class="btn btn-primary">
-                    <i class="bi bi-github icon-spacing"></i><span data-lang-key="source-code">مشاهده کد منبع</span>
-                </a>
-                <a href="#app-showcase" class="btn btn-outline-secondary">
-                    <i class="bi bi-camera-reels icon-spacing"></i><span data-lang-key="app-features">مشاهده امکانات اپلیکیشن</span>
-                </a>
+  <main>
+    <section id="client-section" class="section-padding">
+      <div class="container">
+        <h2 class="section-title text-center" data-lang-key="client-title">بخش اول: مناسب مشتریان عادی (سفارش پروژه)</h2>
+        <p class="section-subtitle" data-lang-key="client-subtitle">اگر صاحب کسب‌وکار هستید و می‌خواهید چنین اپلیکیشنی برای شما توسعه داده شود، این بخش نشان می‌دهد چه مسئله‌ای حل می‌شود و چه ارزشی دریافت می‌کنید.</p>
+
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <div class="audience-card">
+              <h3 data-lang-key="client-need-title">چه مشکلی را حل می‌کند؟</h3>
+              <ul class="feature-list">
+                <li data-lang-key="client-need-1">ثبت سفارشات بدون خطای دستی و سریع‌تر</li>
+                <li data-lang-key="client-need-2">شفافیت وضعیت سفارش برای مدیر، ادمین و خیاط</li>
+                <li data-lang-key="client-need-3">کاهش اتلاف زمان بین اینستاگرام، تماس و دفتر</li>
+              </ul>
             </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="audience-card">
+              <h3 data-lang-key="client-value-title">چه ارزشی می‌گیرید؟</h3>
+              <ul class="feature-list">
+                <li data-lang-key="client-value-1">داشبورد مدیریتی برای مشاهده عملکرد روزانه</li>
+                <li data-lang-key="client-value-2">گزارش مالی و پیگیری سفارشات از ابتدا تا تحویل</li>
+                <li data-lang-key="client-value-3">امکان توسعه مرحله‌ای بر اساس بودجه شما</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="audience-card">
+              <h3 data-lang-key="client-process-title">فرآیند همکاری</h3>
+              <ul class="feature-list">
+                <li data-lang-key="client-process-1">جلسه نیازسنجی + تعریف امکانات ضروری</li>
+                <li data-lang-key="client-process-2">تحویل نمونه اولیه و دریافت بازخورد</li>
+                <li data-lang-key="client-process-3">تحویل نسخه نهایی + پشتیبانی و بهبود</li>
+              </ul>
+            </div>
+          </div>
         </div>
-    </header>
+      </div>
+    </section>
 
-    <main>
-        <!-- Why MeRoSGallery Section -->
-        <section class="why-MeRoSgallery-section section-padding">
-            <div class="container">
-                <h2 class="section-title" data-lang-key="why-title">چرا مروس‌گالری؟</h2>
-                <p class="text-muted text-center mb-5" data-lang-key="why-lead">مروس‌گالری راهکاری دیجیتال برای بهینه‌سازی فرآیندهای کارگاه‌های خیاطی ارائه می‌دهد، با تمرکز بر ساده‌سازی مدیریت و افزایش بهره‌وری.</p>
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <div class="why-item">
-                            <h4 data-lang-key="why-speed-title">افزایش سرعت</h4>
-                            <p data-lang-key="why-speed-desc">ثبت و مدیریت سفارشات در چند ثانیه با رابط کاربری ساده.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="why-item">
-                            <h4 data-lang-key="why-transparency-title">شفافیت مالی</h4>
-                            <p data-lang-key="why-transparency-desc">گزارش‌های دقیق برای مدیر، خیاط و ادمین.</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="why-item">
-                            <h4 data-lang-key="why-integration-title">یکپارچگی</h4>
-                            <p data-lang-key="why-integration-desc">اتصال تمام نقش‌ها در یک سیستم واحد.</p>
-                        </div>
-                    </div>
-                </div>
+    <section id="resume-section" class="section-padding light-section">
+      <div class="container">
+        <h2 class="section-title text-center" data-lang-key="resume-title">بخش دوم: رزومه فنی (برای بررسی استخدامی)</h2>
+        <p class="section-subtitle" data-lang-key="resume-subtitle">این بخش برای تیم‌های فنی طراحی شده تا بتوانند معماری، کیفیت کدنویسی و تفکیک مسئولیت بین اپ اندروید و بک‌اند را بررسی کنند.</p>
+
+        <div class="row g-4 align-items-stretch">
+          <div class="col-lg-6">
+            <div class="audience-card h-100">
+              <h3 data-lang-key="resume-tech-title">نکات فنی کلیدی</h3>
+              <ul class="feature-list">
+                <li data-lang-key="resume-tech-1">Android با Kotlin، MVVM، Room، Retrofit، Hilt</li>
+                <li data-lang-key="resume-tech-2">Backend مبتنی بر PHP و API برای مدیریت سفارشات</li>
+                <li data-lang-key="resume-tech-3">طراحی نقش‌محور: مدیر، خیاط، ادمین با گردش‌کار واقعی</li>
+                <li data-lang-key="resume-tech-4">تمرکز روی نگه‌داری، خوانایی کد و توسعه‌پذیری</li>
+              </ul>
             </div>
-        </section>
+          </div>
 
-        <!-- Technology Stack Section -->
-        <section class="tech-stack-section section-padding">
-            <div class="container">
-                <h2 class="section-title" data-lang-key="tech-title">فناوری‌های استفاده‌شده</h2>
-                <div class="row g-4 justify-content-center">
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-java-plain colored"></i>
-                            <span data-lang-key="tech-retrofit">Retrofit</span>
-                            <small data-lang-key="tech-retrofit-desc">کتابخانه قدرتمند برای اتصال سریع و امن به APIها</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-android-plain colored"></i>
-                            <span data-lang-key="tech-room">Room</span>
-                            <small data-lang-key="tech-room-desc">پایگاه داده محلی برای ذخیره‌سازی امن و سریع</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-android-plain colored"></i>
-                            <span data-lang-key="tech-dagger">Dagger Hilt</span>
-                            <small data-lang-key="tech-dagger-desc">تزریق وابستگی برای مدیریت بهتر کد</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-android-plain colored"></i>
-                            <span data-lang-key="tech-lottie">Lottie Animation</span>
-                            <small data-lang-key="tech-lottie-desc">انیمیشن‌های جذاب و سبک برای رابط کاربری</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-firebase-plain colored"></i>
-                            <span data-lang-key="tech-firebase">Firebase Analytics & Crashlytics</span>
-                            <small data-lang-key="tech-firebase-desc">تحلیل رفتار کاربر و گزارش خطاها</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-android-plain colored"></i>
-                            <span data-lang-key="tech-coil">Coil</span>
-                            <small data-lang-key="tech-coil-desc">بارگذاری سریع و بهینه تصاویر در اپلیکیشن</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-android-plain colored"></i>
-                            <span data-lang-key="tech-canvas">Canvas</span>
-                            <small data-lang-key="tech-canvas-desc">رندر گرافیک‌های دوبعدی با عملکرد بالا</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-android-plain colored"></i>
-                            <span data-lang-key="tech-mvvm">MVVM Architecture</span>
-                            <small data-lang-key="tech-mvvm-desc">معماری تمیز برای توسعه اپلیکیشن‌های مقیاس‌پذیر</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-php-plain colored"></i>
-                            <span data-lang-key="tech-php">PHP</span>
-                            <small data-lang-key="tech-php-desc">زبان برنامه‌نویسی سمت سرور برای بک‌اند</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-kotlin-plain colored"></i>
-                            <span data-lang-key="tech-kotlin">Kotlin</span>
-                            <small data-lang-key="tech-kotlin-desc">زبان مدرن و ایمن برای توسعه اپلیکیشن</small>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-6">
-                        <div class="tech-item">
-                            <i class="devicon-android-plain colored"></i>
-                            <span data-lang-key="tech-compose">Jetpack Compose</span>
-                            <small data-lang-key="tech-compose-desc">رابط کاربری مدرن و پاسخ‌گو برای اندروید</small>
-                        </div>
-                    </div>
-                </div>
+          <div class="col-lg-6">
+            <div class="audience-card h-100">
+              <h3 data-lang-key="resume-repo-title">مخزن‌های گیت‌هاب پروژه</h3>
+              <div class="repo-box">
+                <p class="mb-1"><i class="bi bi-phone"></i> <span data-lang-key="repo-android-label">ریپوی اندروید:</span></p>
+                <a href="https://github.com/mehranmr17/rojgallery-android" target="_blank">github.com/mehranmr17/rojgallery-android</a>
+              </div>
+              <div class="repo-box">
+                <p class="mb-1"><i class="bi bi-server"></i> <span data-lang-key="repo-backend-label">ریپوی بک‌اند:</span></p>
+                <a href="https://github.com/mehranmr17/rojgallery-backend" target="_blank">github.com/mehranmr17/rojgallery-backend</a>
+              </div>
+              <p class="text-muted mb-0" data-lang-key="resume-note">برای ارزیابی دقیق‌تر می‌توانید ساختار پروژه، commit history و نحوه پیاده‌سازی ویژگی‌ها را بررسی کنید.</p>
             </div>
-        </section>
-
-        <!-- App Showcase Section -->
-        <section id="app-showcase" class="section-padding">
-            <div class="container">
-                <h2 class="section-title" data-lang-key="showcase-title">امکانات اپلیکیشن برای نقش‌های مختلف</h2>
-                
-                <!-- Tabs Navigation -->
-                <ul class="nav nav-tabs" id="appTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="manager-tab" data-bs-toggle="tab" data-bs-target="#manager-content" type="button" role="tab" data-lang-key="manager-tab">پنل مدیریت</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="tailor-tab" data-bs-toggle="tab" data-bs-target="#tailor-content" type="button" role="tab" data-lang-key="tailor-tab">اپلیکیشن خیاط</button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link" id="admin-tab" data-bs-toggle="tab" data-bs-target="#admin-content" type="button" role="tab" data-lang-key="admin-tab">اپلیکیشن ادمین</button>
-                    </li>
-                </ul>
-
-                <!-- Tabs Content -->
-                <div class="tab-content" id="appTabsContent">
-                    <!-- Manager App Tab -->
-                    <div class="tab-pane fade show active" id="manager-content" role="tabpanel">
-                        <div class="row g-5 align-items-center">
-                            <div class="col-lg-6">
-                                <h3 data-lang-key="manager-title">پنل مدیریت جامع</h3>
-                                <p class="text-muted" data-lang-key="manager-desc">ابزاری قدرتمند برای مدیریت کامل کارگاه خیاطی، از نظارت بر سفارشات تا تحلیل عملکرد مالی.</p>
-                                <ul class="list-unstyled feature-list mt-4">
-                                    <li data-lang-key="manager-feature-1">داشبورد تحلیلی با گزارش‌های مالی و آماری دقیق</li>
-                                    <li data-lang-key="manager-feature-2">مدیریت کامل چرخه سفارش: از ثبت تا چاپ لیبل و ارسال</li>
-                                    <li data-lang-key="manager-feature-3">مدیریت کاربران، خیاطان و مشتریان با دسترسی‌های مشخص</li>
-                                    <li data-lang-key="manager-feature-4">ایجاد و ویرایش محصولات با جزئیات کامل</li>
-                                    <li data-lang-key="manager-feature-5">نظارت بر عملکرد خیاط‌ها و تخصیص سفارشات</li>
-                                </ul>
-                                <button class="btn btn-outline-primary mt-3" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-src="https://www.youtube.com/embed/VIDEO_ID_MANAGER" aria-label="View Manager App Demo">
-                                    <i class="bi bi-play-circle icon-spacing"></i><span data-lang-key="manager-demo">مشاهده دموی پنل مدیریت</span>
-                                </button>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="row g-3">
-                                    <div class="col-6"><img src="images/manager-screenshot1.jpg" class="img-fluid" alt="Manager App Screenshot 1"></div>
-                                    <div class="col-6"><img src="images/manager-screenshot2.jpg" class="img-fluid" alt="Manager App Screenshot 2"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tailor App Tab -->
-                    <div class="tab-pane fade" id="tailor-content" role="tabpanel">
-                        <div class="row g-5 align-items-center">
-                            <div class="col-lg-6">
-                                <h3 data-lang-key="tailor-title">اپلیکیشن اختصاصی خیاط</h3>
-                                <p class="text-muted" data-lang-key="tailor-desc">رابط کاربری ساده و کاربردی برای خیاط‌ها، طراحی‌شده برای مدیریت آسان سفارشات و تمرکز بر دوخت.</p>
-                                <ul class="list-unstyled feature-list mt-4">
-                                    <li data-lang-key="tailor-feature-1">نمایش سفارشات اختصاص‌یافته با جزئیات کامل</li>
-                                    <li data-lang-key="tailor-feature-2">تغییر وضعیت سفارش (در حال انجام، تکمیل‌شده و ...)</li>
-                                    <li data-lang-key="tailor-feature-3">دسترسی به تاریخچه سفارشات و وضعیت‌های قبلی</li>
-                                    <li data-lang-key="tailor-feature-4">گزارش مالی شفاف با جزئیات درآمد شخصی</li>
-                                </ul>
-                                <button class="btn btn-outline-primary mt-3" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-src="https://www.youtube.com/embed/VIDEO_ID_TAILOR" aria-label="View Tailor App Demo">
-                                    <i class="bi bi-play-circle icon-spacing"></i><span data-lang-key="tailor-demo">مشاهده دموی اپلیکیشن خیاط</span>
-                                </button>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="row g-3">
-                                    <div class="col-6"><img src="images/tailor-screenshot1.jpg" class="img-fluid" alt="Tailor App Screenshot 1"></div>
-                                    <div class="col-6"><img src="images/tailor-screenshot2.jpg" class="img-fluid" alt="Tailor App Screenshot 2"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Admin App Tab -->
-                    <div class="tab-pane fade" id="admin-content" role="tabpanel">
-                        <div class="row g-5 align-items-center">
-                            <div class="col-lg-6">
-                                <h3 data-lang-key="admin-title">اپلیکیشن ادمین (ثبت سفارش)</h3>
-                                <p class="text-muted" data-lang-key="admin-desc">ابزاری ساده و کارآمد برای ادمین‌ها جهت ثبت سفارشات دریافتی از اینستاگرام و مدیریت اطلاعات پایه کاربران.</p>
-                                <ul class="list-unstyled feature-list mt-4">
-                                    <li data-lang-key="admin-feature-1">ثبت سریع سفارشات دریافت‌شده از اینستاگرام</li>
-                                    <li data-lang-key="admin-feature-2">مشاهده و ویرایش اطلاعات پروفایل کاربری</li>
-                                    <li data-lang-key="admin-feature-3">مدیریت امن ورود و خروج از حساب کاربری</li>
-                                    <li data-lang-key="admin-feature-4">دسترسی به لیست سفارشات ثبت‌شده</li>
-                                </ul>
-                                <button class="btn btn-outline-primary mt-3" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-src="https://www.youtube.com/embed/VIDEO_ID_ADMIN" aria-label="View Admin App Demo">
-                                    <i class="bi bi-play-circle icon-spacing"></i><span data-lang-key="admin-demo">مشاهده دموی اپلیکیشن ادمین</span>
-                                </button>
-                            </div>
-                            <div class="col-lg-6">
-                                <div class="row g-3">
-                                    <div class="col-6"><img src="images/admin-screenshot1.jpg" class="img-fluid" alt="Admin App Screenshot 1"></div>
-                                    <div class="col-6"><img src="images/admin-screenshot2.jpg" class="img-fluid" alt="Admin App Screenshot 2"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="contact-section">
-            <div class="container">
-                <h2 class="section-title" data-lang-key="contact-title">تماس با ما</h2>
-                <p class="text-muted text-center mb-4" data-lang-key="contact-desc">برای اطلاعات بیشتر یا درخواست دمو، با ما در ارتباط باشید.</p>
-                <div class="contact-card">
-                    <form action="https://formspree.io/f/YOUR_FORM_ENDPOINT" method="POST">
-                        <div class="mb-3">
-                            <label for="name" class="form-label" data-lang-key="contact-name">نام</label>
-                            <input type="text" class="form-control" id="name" name="name" placeholder="نام شما" data-lang-key-placeholder="contact-name-placeholder" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label" data-lang-key="contact-email">ایمیل</label>
-                            <input type="email" class="form-control" id="email" name="_replyto" placeholder="ایمیل شما" data-lang-key-placeholder="contact-email-placeholder" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="message" class="form-label" data-lang-key="contact-message">پیام</label>
-                            <textarea class="form-control" id="message" name="message" rows="3" placeholder="پیام خود را بنویسید" data-lang-key-placeholder="contact-message-placeholder" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary" data-lang-key="contact-submit">ارسال پیام</button>
-                        <input type="hidden" name="_subject" value="New message from MeRoSGallery">
-                        <input type="hidden" name="_next" value="https://YOUR_USERNAME.github.io/thank-you.html">
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer Section -->
-        <section class="footer-section">
-            <div class="container">
-                <div class="footer-content d-flex flex-row align-items-center justify-content-center text-center gap-3">
-                    <h4 data-lang-key="footer-name">مهران رسول‌زاده</h4>
-                    <p data-lang-key="footer-desc">توسعه‌دهنده اندروید و مهندس نرم‌افزار</p>
-                    <div class="social-icons">
-                        <a href="https://github.com/mehranmr17" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
-                        <a href="https://linkedin.com/in/mehranmr17" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
-                        <a href="mailto:mrs7mehrannmr17@gmail.com" title="Email"><i class="bi bi-envelope-fill"></i></a>
-                    </div>
-                    <p class="small" data-lang-key="footer-copyright">&copy; 1404/2025</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Video Modal -->
-    <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content bg-transparent">
-                <div class="modal-body p-0">
-                    <div class="ratio ratio-16x9">
-                        <iframe id="videoIframe" src="" title="Video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section-padding">
+      <div class="container">
+        <h2 class="section-title text-center" data-lang-key="contact-title">ارتباط و شروع همکاری</h2>
+        <p class="section-subtitle" data-lang-key="contact-subtitle">برای سفارش پروژه یا ارتباط کاری، فرم زیر را ارسال کنید.</p>
+
+        <div class="contact-card">
+          <form action="https://formspree.io/f/YOUR_FORM_ENDPOINT" method="POST">
+            <div class="mb-3">
+              <label for="name" class="form-label" data-lang-key="contact-name">نام</label>
+              <input id="name" name="name" class="form-control" required data-lang-key-placeholder="contact-name-placeholder" placeholder="نام شما" />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label" data-lang-key="contact-email">ایمیل</label>
+              <input type="email" id="email" name="_replyto" class="form-control" required data-lang-key-placeholder="contact-email-placeholder" placeholder="ایمیل شما" />
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label" data-lang-key="contact-message">پیام</label>
+              <textarea id="message" name="message" rows="4" class="form-control" required data-lang-key-placeholder="contact-message-placeholder" placeholder="پیام خود را بنویسید"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100" data-lang-key="contact-submit">ارسال پیام</button>
+            <input type="hidden" name="_subject" value="New message from MeRoSGallery Website" />
+            <input type="hidden" name="_next" value="https://YOUR_USERNAME.github.io/thank-you.html" />
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="mb-1" data-lang-key="footer-name">مهران رسول‌زاده | Android Developer & Software Engineer</p>
+      <p class="mb-0">
+        <a class="text-light" href="https://github.com/mehranmr17" target="_blank">GitHub</a>
+        ·
+        <a class="text-light" href="https://linkedin.com/in/mehranmr17" target="_blank">LinkedIn</a>
+      </p>
     </div>
+  </footer>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        let currentLang = 'fa';
+  <script>
+    let currentLang = 'fa';
 
-        function setLanguage(lang) {
-            currentLang = lang;
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'fa' ? 'rtl' : 'ltr';
-            document.querySelectorAll('[data-lang-key]').forEach(element => {
-                const key = element.getAttribute('data-lang-key');
-                element.textContent = translations[currentLang][key];
-            });
-            document.querySelectorAll('[data-lang-key-placeholder]').forEach(element => {
-                const key = element.getAttribute('data-lang-key-placeholder');
-                element.placeholder = translations[currentLang][key];
-            });
-            document.querySelector('title').textContent = translations[currentLang].title;
+    const translations = {
+      fa: {
+        title: 'مروس‌گالری | معرفی محصول + رزومه فنی',
+        'hero-badge': 'پروژه MeRoSGallery / RojGallery',
+        'hero-title': 'یک سایت، دو هدف: سفارش محصول + بررسی توانایی فنی',
+        'hero-desc': 'این صفحه به دو بخش تقسیم شده: بخش مشتری برای تصمیم‌گیری سریع، و بخش رزومه فنی برای بررسی دقیق کدنویسی و معماری.',
+        'hero-cta-client': 'بخش مشتری',
+        'hero-cta-resume': 'بخش رزومه فنی',
 
-            // Update active button
-            document.getElementById('fa-btn').classList.toggle('active', lang === 'fa');
-            document.getElementById('en-btn').classList.toggle('active', lang === 'en');
-        }
+        'client-title': 'بخش اول: مناسب مشتریان عادی (سفارش پروژه)',
+        'client-subtitle': 'اگر صاحب کسب‌وکار هستید و می‌خواهید چنین اپلیکیشنی برای شما توسعه داده شود، این بخش نشان می‌دهد چه مسئله‌ای حل می‌شود و چه ارزشی دریافت می‌کنید.',
+        'client-need-title': 'چه مشکلی را حل می‌کند؟',
+        'client-need-1': 'ثبت سفارشات بدون خطای دستی و سریع‌تر',
+        'client-need-2': 'شفافیت وضعیت سفارش برای مدیر، ادمین و خیاط',
+        'client-need-3': 'کاهش اتلاف زمان بین اینستاگرام، تماس و دفتر',
+        'client-value-title': 'چه ارزشی می‌گیرید؟',
+        'client-value-1': 'داشبورد مدیریتی برای مشاهده عملکرد روزانه',
+        'client-value-2': 'گزارش مالی و پیگیری سفارشات از ابتدا تا تحویل',
+        'client-value-3': 'امکان توسعه مرحله‌ای بر اساس بودجه شما',
+        'client-process-title': 'فرآیند همکاری',
+        'client-process-1': 'جلسه نیازسنجی + تعریف امکانات ضروری',
+        'client-process-2': 'تحویل نمونه اولیه و دریافت بازخورد',
+        'client-process-3': 'تحویل نسخه نهایی + پشتیبانی و بهبود',
 
-        const translations = {
-            fa: {
-                'title': "مروس‌گالری: سیستم مدیریت هوشمند کارگاه خیاطی | مهران رسول‌زاده",
-                'hero-title': "مروس‌گالری: سیستم مدیریت هوشمند کارگاه خیاطی",
-                'hero-lead': "اپلیکیشنی قدرتمند و یکپارچه برای ساده‌سازی فرآیندهای ثبت سفارش، مدیریت خیاط‌ها و کنترل مالی کارگاه‌های خیاطی.",
-                'source-code': "مشاهده کد منبع",
-                'app-features': "مشاهده امکانات اپلیکیشن",
-                'why-title': "چرا مروس‌گالری؟",
-                'why-lead': "مروس‌گالری راهکاری دیجیتال برای بهینه‌سازی فرآیندهای کارگاه‌های خیاطی ارائه می‌دهد، با تمرکز بر ساده‌سازی مدیریت و افزایش بهره‌وری.",
-                'why-speed-title': "افزایش سرعت",
-                'why-speed-desc': "ثبت و مدیریت سفارشات در چند ثانیه با رابط کاربری ساده.",
-                'why-transparency-title': "شفافیت مالی",
-                'why-transparency-desc': "گزارش‌های دقیق برای مدیر، خیاط و ادمین.",
-                'why-integration-title': "یکپارچگی",
-                'why-integration-desc': "اتصال تمام نقش‌ها در یک سیستم واحد.",
-                'tech-title': "فناوری‌های استفاده‌شده",
-                'tech-retrofit': "Retrofit",
-                'tech-retrofit-desc': "کتابخانه قدرتمند برای اتصال سریع و امن به APIها",
-                'tech-room': "Room",
-                'tech-room-desc': "پایگاه داده محلی برای ذخیره‌سازی امن و سریع",
-                'tech-dagger': "Dagger Hilt",
-                'tech-dagger-desc': "تزریق وابستگی برای مدیریت بهتر کد",
-                'tech-lottie': "Lottie Animation",
-                'tech-lottie-desc': "انیمیشن‌های جذاب و سبک برای رابط کاربری",
-                'tech-firebase': "Firebase Analytics & Crashlytics",
-                'tech-firebase-desc': "تحلیل رفتار کاربر و گزارش خطاها",
-                'tech-coil': "Coil",
-                'tech-coil-desc': "بارگذاری سریع و بهینه تصاویر در اپلیکیشن",
-                'tech-canvas': "Canvas",
-                'tech-canvas-desc': "رندر گرافیک‌های دوبعدی با عملکرد بالا",
-                'tech-mvvm': "MVVM Architecture",
-                'tech-mvvm-desc': "معماری تمیز برای توسعه اپلیکیشن‌های مقیاس‌پذیر",
-                'tech-php': "PHP",
-                'tech-php-desc': "زبان برنامه‌نویسی سمت سرور برای بک‌اند",
-                'tech-kotlin': "Kotlin",
-                'tech-kotlin-desc': "زبان مدرن و ایمن برای توسعه اپلیکیشن",
-                'tech-compose': "Jetpack Compose",
-                'tech-compose-desc': "رابط کاربری مدرن و پاسخ‌گو برای اندروید",
-                'showcase-title': "امکانات اپلیکیشن برای نقش‌های مختلف",
-                'manager-tab': "پنل مدیریت",
-                'manager-title': "پنل مدیریت جامع",
-                'manager-desc': "ابزاری قدرتمند برای مدیریت کامل کارگاه خیاطی، از نظارت بر سفارشات تا تحلیل عملکرد مالی.",
-                'manager-feature-1': "داشبورد تحلیلی با گزارش‌های مالی و آماری دقیق",
-                'manager-feature-2': "مدیریت کامل چرخه سفارش: از ثبت تا چاپ لیبل و ارسال",
-                'manager-feature-3': "مدیریت کاربران، خیاطان و مشتریان با دسترسی‌های مشخص",
-                'manager-feature-4': "ایجاد و ویرایش محصولات با جزئیات کامل",
-                'manager-feature-5': "نظارت بر عملکرد خیاط‌ها و تخصیص سفارشات",
-                'manager-demo': "مشاهده دموی پنل مدیریت",
-                'tailor-tab': "اپلیکیشن خیاط",
-                'tailor-title': "اپلیکیشن اختصاصی خیاط",
-                'tailor-desc': "رابط کاربری ساده و کاربردی برای خیاط‌ها، طراحی‌شده برای مدیریت آسان سفارشات و تمرکز بر دوخت.",
-                'tailor-feature-1': "نمایش سفارشات اختصاص‌یافته با جزئیات کامل",
-                'tailor-feature-2': "تغییر وضعیت سفارش (در حال انجام، تکمیل‌شده و ...)",
-                'tailor-feature-3': "دسترسی به تاریخچه سفارشات و وضعیت‌های قبلی",
-                'tailor-feature-4': "گزارش مالی شفاف با جزئیات درآمد شخصی",
-                'tailor-demo': "مشاهده دموی اپلیکیشن خیاط",
-                'admin-tab': "اپلیکیشن ادمین",
-                'admin-title': "اپلیکیشن ادمین (ثبت سفارش)",
-                'admin-desc': "ابزاری ساده و کارآمد برای ادمین‌ها جهت ثبت سفارشات دریافتی از اینستاگرام و مدیریت اطلاعات پایه کاربران.",
-                'admin-feature-1': "ثبت سریع سفارشات دریافت‌شده از اینستاگرام",
-                'admin-feature-2': "مشاهده و ویرایش اطلاعات پروفایل کاربری",
-                'admin-feature-3': "مدیریت امن ورود و خروج از حساب کاربری",
-                'admin-feature-4': "دسترسی به لیست سفارشات ثبت‌شده",
-                'admin-demo': "مشاهده دموی اپلیکیشن ادمین",
-                'contact-title': "تماس با ما",
-                'contact-desc': "برای اطلاعات بیشتر یا درخواست دمو، با ما در ارتباط باشید.",
-                'contact-name': "نام",
-                'contact-name-placeholder': "نام شما",
-                'contact-email': "ایمیل",
-                'contact-email-placeholder': "ایمیل شما",
-                'contact-message': "پیام",
-                'contact-message-placeholder': "پیام خود را بنویسید",
-                'contact-submit': "ارسال پیام",
-                'language-label': "تغییر زبان به:",
-                'footer-name': "مهران رسول‌زاده",
-                'footer-desc': "توسعه‌دهنده اندروید و مهندس نرم‌افزار",
-                'footer-copyright': "&copy; 1404/2025"
-            },
-            en: {
-                'title': "MeRoSGallery: Smart Tailoring Workshop Management System | Mehran Rasoulzadeh",
-                'hero-title': "MeRoSGallery: Smart Tailoring Workshop Management System",
-                'hero-lead': "A powerful and integrated app for simplifying order registration, tailor management, and financial control.",
-                'source-code': "View Source Code",
-                'app-features': "Explore App Features",
-                'why-title': "Why MeRoSGallery?",
-                'why-lead': "MeRoSGallery offers a digital solution to optimize tailoring workshop processes, focusing on simplified management and increased productivity.",
-                'why-speed-title': "Increased Speed",
-                'why-speed-desc': "Register and manage orders in seconds with a simple interface.",
-                'why-transparency-title': "Financial Transparency",
-                'why-transparency-desc': "Accurate reports for managers, tailors, and admins.",
-                'why-integration-title': "Integration",
-                'why-integration-desc': "Connects all roles in a unified system.",
-                'tech-title': "Technologies Used",
-                'tech-retrofit': "Retrofit",
-                'tech-retrofit-desc': "Powerful library for fast and secure API connections",
-                'tech-room': "Room",
-                'tech-room-desc': "Local database for secure and fast storage",
-                'tech-dagger': "Dagger Hilt",
-                'tech-dagger-desc': "Dependency injection for better code management",
-                'tech-lottie': "Lottie Animation",
-                'tech-lottie-desc': "Engaging and lightweight animations for UI",
-                'tech-firebase': "Firebase Analytics & Crashlytics",
-                'tech-firebase-desc': "User behavior analysis and crash reporting",
-                'tech-coil': "Coil",
-                'tech-coil-desc': "Fast and optimized image loading in the app",
-                'tech-canvas': "Canvas",
-                'tech-canvas-desc': "High-performance 2D graphics rendering",
-                'tech-mvvm': "MVVM Architecture",
-                'tech-mvvm-desc': "Clean architecture for scalable app development",
-                'tech-php': "PHP",
-                'tech-php-desc': "Server-side programming language for backend",
-                'tech-kotlin': "Kotlin",
-                'tech-kotlin-desc': "Modern and safe language for app development",
-                'tech-compose': "Jetpack Compose",
-                'tech-compose-desc': "Modern and responsive UI for Android",
-                'showcase-title': "App Features for Different Roles",
-                'manager-tab': "Manager Panel",
-                'manager-title': "Comprehensive Manager Panel",
-                'manager-desc': "A powerful tool for complete workshop management, from order tracking to financial analysis.",
-                'manager-feature-1': "Analytical dashboard with detailed financial and statistical reports",
-                'manager-feature-2': "Full order cycle management: from registration to label printing and shipping",
-                'manager-feature-3': "User, tailor, and customer management with defined access levels",
-                'manager-feature-4': "Create and edit products with full details",
-                'manager-feature-5': "Monitor tailor performance and assign orders",
-                'manager-demo': "View Manager Panel Demo",
-                'tailor-tab': "Tailor App",
-                'tailor-title': "Dedicated Tailor App",
-                'tailor-desc': "A simple and practical UI for tailors, designed for easy order management and focus on sewing.",
-                'tailor-feature-1': "Display assigned orders with full details",
-                'tailor-feature-2': "Change order status (in progress, completed, etc.)",
-                'tailor-feature-3': "Access order history and previous statuses",
-                'tailor-feature-4': "Transparent financial reports with personal income details",
-                'tailor-demo': "View Tailor App Demo",
-                'admin-tab': "Admin App",
-                'admin-title': "Admin App (Order Registration)",
-                'admin-desc': "A simple and efficient tool for admins to register Instagram orders and manage basic user data.",
-                'admin-feature-1': "Quick registration of orders received from Instagram",
-                'admin-feature-2': "View and edit user profile information",
-                'admin-feature-3': "Secure account login and logout management",
-                'admin-feature-4': "Access to the list of registered orders",
-                'admin-demo': "View Admin App Demo",
-                'contact-title': "Contact Us",
-                'contact-desc': "Get in touch for more information or to request a demo.",
-                'contact-name': "Name",
-                'contact-name-placeholder': "Your Name",
-                'contact-email': "Email",
-                'contact-email-placeholder': "Your Email",
-                'contact-message': "Message",
-                'contact-message-placeholder': "Write your message",
-                'contact-submit': "Send Message",
-                'language-label': "Change language to:",
-                'footer-name': "Mehran Rasoulzadeh",
-                'footer-desc': "Android Developer and Software Engineer",
-                'footer-copyright': "&copy; 2025/1404"
-            }
-        };
+        'resume-title': 'بخش دوم: رزومه فنی (برای بررسی استخدامی)',
+        'resume-subtitle': 'این بخش برای تیم‌های فنی طراحی شده تا بتوانند معماری، کیفیت کدنویسی و تفکیک مسئولیت بین اپ اندروید و بک‌اند را بررسی کنند.',
+        'resume-tech-title': 'نکات فنی کلیدی',
+        'resume-tech-1': 'Android با Kotlin، MVVM، Room، Retrofit، Hilt',
+        'resume-tech-2': 'Backend مبتنی بر PHP و API برای مدیریت سفارشات',
+        'resume-tech-3': 'طراحی نقش‌محور: مدیر، خیاط، ادمین با گردش‌کار واقعی',
+        'resume-tech-4': 'تمرکز روی نگه‌داری، خوانایی کد و توسعه‌پذیری',
+        'resume-repo-title': 'مخزن‌های گیت‌هاب پروژه',
+        'repo-android-label': 'ریپوی اندروید:',
+        'repo-backend-label': 'ریپوی بک‌اند:',
+        'resume-note': 'برای ارزیابی دقیق‌تر می‌توانید ساختار پروژه، commit history و نحوه پیاده‌سازی ویژگی‌ها را بررسی کنید.',
 
-        // Set initial language
-        document.addEventListener('DOMContentLoaded', () => {
-            setLanguage(currentLang);
-        });
-    </script>
+        'contact-title': 'ارتباط و شروع همکاری',
+        'contact-subtitle': 'برای سفارش پروژه یا ارتباط کاری، فرم زیر را ارسال کنید.',
+        'contact-name': 'نام',
+        'contact-name-placeholder': 'نام شما',
+        'contact-email': 'ایمیل',
+        'contact-email-placeholder': 'ایمیل شما',
+        'contact-message': 'پیام',
+        'contact-message-placeholder': 'پیام خود را بنویسید',
+        'contact-submit': 'ارسال پیام',
+        'footer-name': 'مهران رسول‌زاده | Android Developer & Software Engineer'
+      },
+      en: {
+        title: 'MeRoSGallery | Product Pitch + Technical Resume',
+        'hero-badge': 'MeRoSGallery / RojGallery Project',
+        'hero-title': 'One website, two goals: client pitch + technical portfolio',
+        'hero-desc': 'This page is split into two parts: a client-facing section for quick business decisions, and a technical resume section for engineering review.',
+        'hero-cta-client': 'Client Section',
+        'hero-cta-resume': 'Technical Resume',
+
+        'client-title': 'Part 1: For business clients (project request)',
+        'client-subtitle': 'If you run a business and want a similar app, this part helps you understand the problem solved and the value you will receive.',
+        'client-need-title': 'What problem does it solve?',
+        'client-need-1': 'Faster order registration with less manual error',
+        'client-need-2': 'Transparent order status for manager, admin, and tailor',
+        'client-need-3': 'Reduced time loss between Instagram, calls, and paper notes',
+        'client-value-title': 'What value do you get?',
+        'client-value-1': 'Management dashboard for daily performance tracking',
+        'client-value-2': 'Financial reports and end-to-end order tracking',
+        'client-value-3': 'Phase-based development aligned with your budget',
+        'client-process-title': 'How we work together',
+        'client-process-1': 'Discovery session + feature prioritization',
+        'client-process-2': 'Prototype delivery + feedback loop',
+        'client-process-3': 'Final release + support and iterations',
+
+        'resume-title': 'Part 2: Technical resume (for hiring review)',
+        'resume-subtitle': 'Built for engineering teams to review architecture, code quality, and separation of concerns between Android and backend.',
+        'resume-tech-title': 'Technical highlights',
+        'resume-tech-1': 'Android with Kotlin, MVVM, Room, Retrofit, Hilt',
+        'resume-tech-2': 'PHP backend and APIs for order workflow management',
+        'resume-tech-3': 'Role-based design: manager, tailor, admin with real process flow',
+        'resume-tech-4': 'Focus on maintainability, readability, and extensibility',
+        'resume-repo-title': 'Project GitHub repositories',
+        'repo-android-label': 'Android repository:',
+        'repo-backend-label': 'Backend repository:',
+        'resume-note': 'For deeper evaluation, check project structure, commit history, and feature implementation details.',
+
+        'contact-title': 'Contact & Collaboration',
+        'contact-subtitle': 'Send the form below for project requests or job opportunities.',
+        'contact-name': 'Name',
+        'contact-name-placeholder': 'Your name',
+        'contact-email': 'Email',
+        'contact-email-placeholder': 'Your email',
+        'contact-message': 'Message',
+        'contact-message-placeholder': 'Write your message',
+        'contact-submit': 'Send Message',
+        'footer-name': 'Mehran Rasoulzadeh | Android Developer & Software Engineer'
+      }
+    };
+
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
+
+      document.querySelectorAll('[data-lang-key]').forEach((el) => {
+        const key = el.getAttribute('data-lang-key');
+        el.textContent = translations[lang][key] || key;
+      });
+
+      document.querySelectorAll('[data-lang-key-placeholder]').forEach((el) => {
+        const key = el.getAttribute('data-lang-key-placeholder');
+        el.placeholder = translations[lang][key] || '';
+      });
+
+      document.title = translations[lang].title;
+
+      document.getElementById('fa-btn').classList.toggle('active', lang === 'fa');
+      document.getElementById('en-btn').classList.toggle('active', lang === 'en');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => setLanguage(currentLang));
+  </script>
 </body>
 </html>
